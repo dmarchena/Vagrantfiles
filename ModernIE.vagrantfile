@@ -12,21 +12,14 @@ config.vm.box = "modernIE/w7-ie11"
 config.vm.box = "modernIE/w8-ie10"
 config.vm.box = "modernIE/w8.1-ie11" 
 config.vm.box = "modernIE/w10-edge"
+
+System Account Credentials
+Username: IEUser
+Password: Passw0rd!
 =end
 
 Vagrant.configure("2") do |config|
   config.vm.box = "modernIE/w10-edge"
-
-  # big timeout since windows boot is very slow
-  config.vm.boot_timeout = 500
-
-  # rdp forward
-  config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
-
-  # winrm config, uses modern.ie default user/password. If other credentials are used must be changed here
-  config.vm.communicator = "winrm"
-  config.winrm.username = "IEUser"
-  config.winrm.password = "Passw0rd!"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
